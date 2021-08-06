@@ -5,6 +5,7 @@ protocol Mobile {
   func packing()
 }
 
+
 struct Iphone: Mobile {
   func packing() {
     print("iPhone is ready for you")
