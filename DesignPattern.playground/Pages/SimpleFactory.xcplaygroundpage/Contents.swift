@@ -50,3 +50,4 @@ let mobileStore = MobileStore()
 let mobile = PhoneFactory.createMobile(.xiaomi)
 mobile.packing()
 mobileStore.sellMobile(phone: mobile)
+
