@@ -1,69 +1,48 @@
 import Foundation
 import SwiftUI
 
-protocol RoundPegProtocol {
-  func getRadius() -> Double
+protocol ShapeProtocol {
+  var color: ColorProtocol? { get set }
+  func draw()
 }
 
-// 圆孔
-class RoundHole {
-  private let radius: Double
-  init(radius: Double) {
-    self.radius = radius
-  }
-
-  func fit(peg: RoundPegProtocol) -> Bool {
-    radius >= peg.getRadius()
-  }
+protocol ColorProtocol {
+  func show()
 }
 
-// 圆钉
-class RoundPeg: RoundPegProtocol {
-  private let radius: Double
-  init(radius: Double) {
-    self.radius = radius
-  }
-
-  func getRadius() -> Double {
-    radius
+struct Blue: ColorProtocol {
+  func show() {
+    print("I am blue")
   }
 }
 
-// 方钉
-class SquarePeg {
-  private let width: Double
-  init(width: Double) {
-    self.width = width
-  }
-
-  func getWidth() -> Double {
-    width
+struct Red: ColorProtocol {
+  func show() {
+    print("I am red")
   }
 }
 
-// 把方钉转换成圆钉
-class SquarePegAdapter: RoundPegProtocol {
-  private let squarePeg: SquarePeg
-
-  init(squarePeg: SquarePeg) {
-    self.squarePeg = squarePeg
-  }
-
-  func getRadius() -> Double {
-    let width = squarePeg.getWidth()
-    return sqrt(2 * width * width) / 2.0
+struct Green: ColorProtocol {
+  func show() {
+    print("I am green")
   }
 }
 
-let roundHole = RoundHole(radius: 5)
-let roundPeg = RoundPeg(radius: 5)
-print(roundHole.fit(peg: roundPeg))
+struct Circle: ShapeProtocol {
+  var color: ColorProtocol?
+  func draw() {
+    print("I am a circle!")
+    color?.show()
+  }
+}
 
-let small_sqpeg = SquarePeg(width: 5)
-let large_sqpeg = SquarePeg(width: 10)
-// roundHole.fit(peg: small_sqpeg) 不能通过编译
-let small_sqpeg_adapter = SquarePegAdapter(squarePeg: small_sqpeg)
-let large_sqpeg_adapter = SquarePegAdapter(squarePeg: large_sqpeg)
+struct Square: ShapeProtocol {
+  var color: ColorProtocol?
+  func draw() {
+    print("I am a square!")
+    color?.show()
+  }
+}
 
-print(roundHole.fit(peg: small_sqpeg_adapter))
-print(roundHole.fit(peg: large_sqpeg_adapter))
+var redCircle: ShapeProtocol = Circle(color: Red())
+redCircle.draw()
