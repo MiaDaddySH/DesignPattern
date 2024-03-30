@@ -1,2 +1,2 @@
 # DesignPattern
-Test
+The design pattern samples in playground
